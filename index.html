@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>
+   Super Destroyer | Fire Control
+  </title>
+  <!-- CSS：控制页面排版、颜色、尺寸、图标样式。CSS 注释要用 /* ... */，不能用 //。 -->
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+  <div class="shell">
+   <div class="head">
+    <div class="head-left">
+     <img class="skull" id="skull"/>
+     <div>
+      <div class="supertitle">
+       SUPER EARTH ARMED FORCES // ORBITAL COMMAND
+      </div>
+      <div class="title">
+       SUPER DESTROYER
+       <em>
+        / FIRE CONTROL
+       </em>
+      </div>
+      <div class="label" style="margin-top:5px">
+       STRATAGEM OPERATOR TRAINING SIMULATOR
+      </div>
+     </div>
+    </div>
+    <div class="chip" id="phase">
+     STANDBY
+    </div>
+   </div>
+   <div class="serial-panel" id="serial-panel">
+    <span class="serial-label">HARDWARE / USB CONTROL</span>
+    <button class="btn gold" id="serial-connect" type="button">CONNECT ESP32</button>
+    <button class="btn" id="serial-disconnect" type="button" disabled>DISCONNECT</button>
+    <span id="serial-status" role="status" aria-live="polite">NOT CONNECTED</span>
+    <span class="serial-last" id="serial-last">LAST INPUT: —</span>
+   </div>
+   <div class="layout">
+    <aside class="side left">
+     <div class="sect">
+      STRATAGEM CODEX
+     </div>
+     <div id="codex">
+     </div>
+     <div style="background:#29382d;border:1px solid #63735f;padding:12px;margin-top:14px">
+      <div class="label">
+       SELECTED BEACON
+      </div>
+      <b id="selected">
+       NONE
+      </b>
+      <div class="input" id="expected" style="margin-top:8px">
+       —
+      </div>
+     </div>
+     <p style="font:11px/1.8 monospace;color:#aebdad">
+      30s REQUEST DEADLINE
+      <br/>
+      3 NORMAL REQUESTS MAX
+      <br/>
+      REINFORCE EXEMPT
+     </p>
+    </aside>
+    <main class="center">
+     <div class="topline">
+      <span>
+       PLANETARY SURFACE / 50×50
+      </span>
+      <span id="coords">
+       RETICLE 25,25
+      </span>
+      <span id="clock">
+       T+00:00
+      </span>
+     </div>
+     <div class="map-area">
+      <div class="map" id="map">
+       <svg preserveaspectratio="none" viewbox="0 0 100 100">
+        <line id="route" stroke="#ffe06a" stroke-dasharray="1 1" stroke-width=".3">
+        </line>
+       </svg>
+       <div class="marks" id="marks">
+       </div>
+       <div class="reticle" id="reticle" style="left:49%;top:49%">
+       </div>
+       <div class="overlay" id="overlay">
+        <div>
+         <img id="overlay-skull"/>
+         <h2>
+          SPREAD MANAGED
+          <br/>
+          DEMOCRACY.
+         </h2>
+         <p>
+          Complete Mission 1, then Mission 2, then extract. Four Helldivers. Thirty seconds per stratagem request.
+         </p>
+         <button class="btn gold" id="begin">
+          ▶ INITIATE OPERATION
+         </button>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="belowline">
+      <span>
+       🟠 ACTIVE MISSION　⚪ COMPLETED / LOCKED
+      </span>
+      <span style="color:#fa7770">
+       ● OFFENSIVE
+      </span>
+      <span style="color:#73c5fc">
+       ● SUPPORT
+      </span>
+     </div>
+     <div class="msg" id="message">
+      AWAITING DEPLOYMENT AUTHORIZATION.
+     </div>
+     <div class="belowline">
+      <span>
+       INPUT:
+       <b class="input" id="input">
+        —
+       </b>
+      </span>
+      <span>
+       CLICK MAP TO AIM
+      </span>
+     </div>
+    </main>
+    <aside class="side right">
+     <div class="sect">
+      MISSION TELEMETRY
+     </div>
+     <div class="stat">
+      <div class="label">
+       HELLDIVERS ALIVE
+      </div>
+      <div class="value" id="alive">
+       4 / 4
+      </div>
+     </div>
+     <div class="stat">
+      <div class="label">
+       MISSIONS SECURED (1 → 2)
+      </div>
+      <div class="value" id="objectives">
+       0 / 2
+      </div>
+     </div>
+     <div class="stat">
+      <div class="label">
+       INPUT FAILURES
+      </div>
+      <div class="value" id="errors">
+       0 / 3
+      </div>
+     </div>
+     <div class="stat">
+      <div class="label">
+       SQUAD ACTIVITY
+      </div>
+      <div class="status" id="activity">
+       STANDBY
+      </div>
+      <div class="label" id="hold" style="margin-top:6px">
+      </div>
+     </div>
+     <div class="stat">
+      <div class="label">
+       STRATAGEM COOLDOWNS
+      </div>
+      <div class="label">
+       RESUPPLY:
+       <b id="resupplycd" style="float:right;color:#b4df9c">
+        READY
+       </b>
+      </div>
+      <div class="label">
+       380MM BARRAGE:
+       <b id="barragecd" style="float:right;color:#b4df9c">
+        READY
+       </b>
+      </div>
+     </div>
+     <div class="sect" style="margin-top:12px">
+      ACTIVE REQUESTS
+      <span id="count">
+       0 / 3
+      </span>
+     </div>
+     <div id="requests">
+     </div>
+     <div class="sect" style="margin-top:14px">
+      OPERATION LOG
+     </div>
+     <div class="logs" id="logs">
+     </div>
+    </aside>
+   </div>
+   <div class="footer">
+    <div style="display:flex;gap:8px">
+     <button class="btn gold" id="new">
+      ↻ NEW MISSION
+     </button>
+     <button class="btn" id="pause">
+      Ⅱ PAUSE
+     </button>
+    </div>
+    <div style="font:11px/1.7 monospace;text-align:center;color:#c6d0c0">
+     ARROW KEYS / SHIFT+ARROWS — AIM
+     <br/>
+     W A S D — CODE / ENTER — DEPLOY
+    </div>
+    <div style="display:flex;align-items:center;gap:3px">
+     <button class="arrowbutton" data-d="L">
+      ←
+     </button>
+     <button class="arrowbutton" data-d="D">
+      ↓
+     </button>
+     <button class="arrowbutton" data-d="U">
+      ↑
+     </button>
+     <button class="arrowbutton" data-d="R">
+      →
+     </button>
+     <button class="btn gold" id="deploy" style="margin-left:6px">
+      DEPLOY ↵
+     </button>
+    </div>
+   </div>
+  </div>
+  <!-- JavaScript：让网页可以响应操作、计时、移动小队、判断游戏胜负。 -->
+  <script src="script.js" defer></script>
+ </body>
+</html>

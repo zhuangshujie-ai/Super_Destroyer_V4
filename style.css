@@ -1,0 +1,400 @@
+* {
+  box-sizing:border-box}
+body {
+  margin:0;
+  background:#0b0f0d;
+  color:#e7e9e1;
+  font-family:Arial,Helvetica,sans-serif}
+button {
+  cursor:pointer;
+  font:inherit}
+ .shell {
+  width:min(1440px,100%);
+  min-height:900px;
+  margin:auto;
+  border:1px solid #53634b;
+  background:#111814;
+  display:flex;
+  flex-direction:column}
+.head {
+  height:91px;
+  border-bottom:3px solid #f5d63f;
+  background:#202720;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 18px}
+.head-left {
+  display:flex;
+  align-items:center;
+  gap:15px}
+.skull {
+  width:64px;
+  height:64px;
+  object-fit:contain}
+.supertitle {
+  font-size:11px;
+  letter-spacing:2px;
+  color:#e1c84c;
+  font-family:monospace}
+.title {
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:-1px}
+.title em {
+  font-style:normal;
+  color:#f5d63f}
+.chip {
+  font:11px monospace;
+  border:1px solid #7c8977;
+  padding:9px 12px}
+.layout {
+  display:grid;
+  grid-template-columns:22% minmax(0,1fr) 24%;
+  flex:1;
+  min-height:0}
+.side {
+  padding:16px;
+  background:#1b241e;
+  overflow:auto}
+.side.left {
+  border-right:1px solid #44543e}
+.side.right {
+  border-left:1px solid #44543e}
+.sect {
+  font:700 12px monospace;
+  color:#f4d14b;
+  letter-spacing:1.4px;
+  padding-bottom:11px;
+  border-bottom:1px solid #63705a;
+  margin-bottom:8px}
+.item {
+  display:grid;
+  grid-template-columns:55px 1fr;
+  gap:10px;
+  align-items:center;
+  padding:8px 0;
+  border-bottom:1px solid #3a483b}
+.item img {
+  width:52px;
+  height:52px;
+  object-fit:contain;
+  border:1px solid #647261;
+  background:#1a241d}
+.item b {
+  font-size:12px;
+  line-height:1.4}
+.item .type {
+  font:10px monospace;
+  color:#aeb7a6;
+  margin-bottom:4px}
+.item .code {
+  font:800 19px monospace;
+  color:#efce65;
+  letter-spacing:1px;
+  margin-top:7px}
+.cooldown {
+  font:10px monospace;
+  color:#e7ca6d;
+  margin-top:4px}
+.center {
+  background:radial-gradient(ellipse at center,#294032,#0e1a16 85%);
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  min-width:0}
+.topline,.belowline {
+  font:11px monospace;
+  color:#b8c8b5;
+  display:flex;
+  justify-content:space-between;
+  gap:8px}
+.map-area {
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 0;
+  min-height:0}
+/* 50×50 战术地图：网格线采用 CSS 背景绘制。 */
+  .map {
+  width:min(100%,560px);
+  aspect-ratio:1;
+  position:relative;
+  border:2px solid #a0ac86;
+  cursor:crosshair;
+  overflow:hidden;
+  background-color:#324332;
+  background-image:radial-gradient(ellipse at 25% 25%,#ab955a35,transparent 30%),radial-gradient(ellipse at 70% 75%,#788f534f,transparent 40%),repeating-linear-gradient(0deg,transparent 0,transparent calc(2% - 1px),#c0d4a92b calc(2% - 1px),#c0d4a92b 2%),repeating-linear-gradient(90deg,transparent 0,transparent calc(2% - 1px),#c0d4a92b calc(2% - 1px),#c0d4a92b 2%)}
+.marks {
+  position:absolute;
+  inset:0;
+  pointer-events:none}
+.mark {
+  position:absolute;
+  z-index:5;
+  transform:translate(-50%,-50%);
+  width:23px;
+  height:23px;
+  border-radius:50%;
+  border:2px solid white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font:bold 12px monospace;
+  text-shadow:0 1px #0005;
+  box-shadow:0 0 10px #0008}
+.mark.obj {
+  background:#f0a53e;
+  color:#1c211c}
+.mark.evac {
+  background:#e7a04c;
+  color:#1b211b}
+.mark.team {
+  background:#e9f0e8;
+  color:#223428;
+  z-index:9}
+.mark.red {
+  background:#d94a3f;
+  border-color:#ffc0ad}
+.mark.blue,.mark.reinforce {
+  background:#258bd0;
+  border-color:#c6efff}
+.mark img {
+  width:19px;
+  height:19px;
+  object-fit:contain}
+.marklabel {
+  position:absolute;
+  z-index:8;
+  transform:translate(13px,-50%);
+  background:#0d140ee8;
+  border-left:3px solid #f1d15e;
+  padding:3px 5px;
+  font:700 10px monospace;
+  white-space:nowrap}
+.marklabel.red {
+  border-color:#ec544c}
+.marklabel.blue,.marklabel.reinforce {
+  border-color:#52baff}
+.reticle {
+  position:absolute;
+  z-index:10;
+  width:24px;
+  height:24px;
+  transform:translate(-50%,-50%);
+  border:2px solid #ffe564;
+  pointer-events:none;
+  box-shadow:0 0 12px #ffe56491}
+.reticle:before,.reticle:after {
+  content:"";
+  position:absolute;
+  background:#ffe564}
+.reticle:before {
+  height:1px;
+  width:36px;
+  left:-8px;
+  top:10px}
+.reticle:after {
+  width:1px;
+  height:36px;
+  left:10px;
+  top:-8px}
+.map svg {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none}
+.msg {
+  background:#2b382d;
+  border:1px solid #778265;
+  color:#f5dc82;
+  padding:10px 12px;
+  font:12px/1.5 monospace;
+  min-height:42px;
+  margin:10px 0}
+.input {
+  font:700 17px monospace;
+  color:#f7d36c}
+.stat {
+  border-bottom:1px solid #455344;
+  padding:12px 0}
+.label {
+  font:10px monospace;
+  color:#adb9aa;
+  letter-spacing:.6px;
+  margin-bottom:6px}
+.value {
+  font-size:26px;
+  font-weight:900}
+.status {
+  font:700 13px monospace;
+  color:#f0ce5c}
+.request {
+  width:100%;
+  display:block;
+  border:1px solid #4b654a;
+  border-left:4px solid #f0c94c;
+  background:#2b372d;
+  margin:7px 0;
+  padding:9px;
+  color:#f2f4ec;
+  text-align:left}
+.request.red {
+  border-left-color:#f06355}
+.request.blue,.request.reinforce {
+  border-left-color:#66b9f0}
+.request.on {
+  background:#475039;
+  border-color:#e8cb5c}
+.request img {
+  width:39px;
+  height:39px;
+  object-fit:contain}
+.request small {
+  font:10px monospace;
+  color:#bfd0b9}
+.request .time {
+  font:bold 18px monospace;
+  color:#f4d777}
+.request .bar {
+  background:#4b5e50;
+  height:4px;
+  margin-top:7px}
+.request .bar>i {
+  display:block;
+  background:#edcd57;
+  height:100%}
+.logs {
+  font:10px/1.6 monospace;
+  color:#c1cdc0;
+  max-height:105px;
+  overflow:auto}
+.logs div {
+  border-bottom:1px solid #3e4c40;
+  padding:3px 0}
+.footer {
+  min-height:73px;
+  border-top:2px solid #63725b;
+  background:#1d251e;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 14px;
+  gap:8px}
+.btn {
+  background:#344436;
+  color:#ecf0e7;
+  border:1px solid #81917b;
+  font-weight:800;
+  font-size:12px;
+  padding:10px}
+.btn.gold {
+  background:#eed047;
+  color:#172013;
+  border-color:#ffe879}
+.arrowbutton {
+  background:#2c3d31;
+  border:1px solid #788b71;
+  color:#f7d86d;
+  width:39px;
+  height:37px;
+  font-size:21px}
+.overlay {
+  position:absolute;
+  inset:0;
+  background:#08100deb;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px;
+  cursor:default}
+.overlay h2 {
+  font-size:36px;
+  line-height:1.2;
+  margin:10px 0}
+.overlay p {
+  font-size:13px;
+  color:#c8d0c4;
+  line-height:1.6;
+  max-width:390px;
+  margin:0 auto 22px}
+.overlay img {
+  width:72px;
+  height:72px;
+  object-fit:contain}
+.mobile-note {
+  display:none}
+@media(max-width:850px) {
+  .shell {
+  min-height:720px}
+.head {
+  padding:8px}
+.title {
+  font-size:18px}
+.skull {
+  width:46px;
+  height:46px}
+.chip {
+  display:none}
+.layout {
+  grid-template-columns:24% minmax(0,1fr) 25%}
+.side {
+  padding:7px}
+.item {
+  grid-template-columns:30px 1fr;
+  gap:4px}
+.item img {
+  width:28px;
+  height:28px}
+.item b {
+  font-size:10px}
+.item .code {
+  font-size:12px}
+.center {
+  padding:6px}
+.value {
+  font-size:20px}
+.request img {
+  width:27px;
+  height:27px}
+.footer {
+  flex-wrap:wrap}
+.arrowbutton {
+  width:29px;
+  height:30px;
+  font-size:15px}
+.btn {
+  font-size:10px;
+  padding:8px}
+}
+
+.mark.mission-pin {
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  width:35px!important;
+  height:35px!important;
+  overflow:visible!important}
+.mark.mission-pin img {
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  filter:drop-shadow(0 1px 2px #000a)}
+
+/* ESP32 USB 串口状态栏 */
+.serial-panel { display:flex; align-items:center; flex-wrap:wrap; gap:9px; padding:9px 12px; margin-top:8px; background:#16201e; border:1px solid #526d60; font:11px/1.4 monospace; color:#d5e4d4; }
+.serial-panel .serial-label { color:#e8d270; font-weight:bold; letter-spacing:1px; margin-right:5px; }
+#serial-status { color:#f6bb7a; font-weight:bold; }
+#serial-status.connected { color:#9fe19b; }
+.serial-last { margin-left:auto; color:#a9b8ae; }
+.serial-panel .btn:disabled { opacity:.35; cursor:not-allowed; }
+@media(max-width:900px) { .serial-last { margin-left:0; } }
+#serial-panel { margin:0; padding:12px 18px; min-height:60px; background:#26362b; border:0; border-bottom:2px solid #f5d63f; flex-shrink:0; }
+#serial-connect { background:#f5d63f; color:#162018; border:2px solid #f8e68e; font-weight:800; padding:10px 18px; }
+#serial-disconnect { padding:10px 14px; }
+#serial-status { font-size:12px; }
